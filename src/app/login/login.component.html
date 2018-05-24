@@ -1,0 +1,20 @@
+<div id="login-section">
+  <div class="container col-md-4" id="login-form">
+    <h1 id="login-title">Login</h1>
+    <form [formGroup]='loginform' (ngSubmit)="onSubmit()">
+      <div *ngIf="invalidLoginFlag" class="alert alert-danger">
+        Invalid Username/Password!
+      </div>
+      <mat-form-field class="login-fields">
+        <input matInput placeholder="Username" formControlName="username">
+      </mat-form-field>
+      <br/>
+      <mat-form-field class="login-fields">
+        <input matInput placeholder="Password" formControlName="password" type="password">
+      </mat-form-field>
+      <br/>
+      <button mat-raised-button color="primary" type="submit" [disabled]='loginform.invalid'>LogIn</button>
+      <a routerLink="/signup">New User?</a>
+    </form>
+  </div>
+</div>

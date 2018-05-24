@@ -1,0 +1,40 @@
+<div id="signup-section">
+  <div class="container col-md-5" id="signup-box">
+    <h1 id="signup-title">SignUp</h1>
+    <form [formGroup]='signupform' (ngSubmit)="onSubmit()">
+      <input 
+        placeholder="Firstname" 
+        class="form-control name-fields"
+        formControlName="firstname">
+      <input 
+        placeholder="Lastname"
+        class="form-control name-fields"
+        formControlName="lastname">
+      <input 
+        placeholder="Age" 
+        class="form-control"
+        formControlName="age">
+      <input 
+        placeholder="Username" 
+        class="form-control login-fields"
+        formControlName="username">
+      <div formGroupName="passwordgroup">
+        <input 
+          placeholder="Password" 
+          class="form-control login-fields"
+          formControlName="password">
+        <input 
+          placeholder="Confirm Password" 
+          class="form-control"
+          formControlName="confirmpassword">
+      </div>
+      <input 
+        placeholder="example@domain.com" 
+        class="form-control"
+        formControlName="email">
+      
+      <button type="submit" class="btn btn-info">Register</button>
+      <a routerLink="/login">Already a member?</a>
+    </form>
+  </div>
+</div>
