@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
-  constructor(private authUser: UserService, private router: Router) { }
+  constructor(private authUser: UserService, private router: Router, private route: ActivatedRoute) { }
 
   private invalidLoginFlag : boolean = false;
 
@@ -34,7 +34,8 @@ export class LoginComponent {
           localStorage.setItem('token', data.token);
           localStorage.setItem('id', data.id);
           location.reload();
-          this.router.navigate(['/']);
+          let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+          this.router.navigate([returnUrl || '/']);
         }
       },
         err => {
