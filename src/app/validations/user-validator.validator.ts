@@ -31,14 +31,17 @@ export class NewUser {
         }
     }
 
+    static hasValidEmail(control: AbstractControl): ValidationErrors | null{
+        let email = control.value;
+        return
+    }
+
     static passwordsShouldMatch(control:AbstractControl): ValidationErrors | null{
         let password = control.get('password').value;
         let confirmpassword = control.get('confirmpassword').value;
         if(password == confirmpassword) {
-            console.log("passwords match");
-            return { passwordsShouldMatch : false };
+            return null;
         }
-        console.log("passwords dont match");
         return { passwordsShouldMatch : true };
     }
 } 

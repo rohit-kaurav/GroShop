@@ -42,7 +42,7 @@ router.post('/username_exists',(req,res) => {
             .toArray()
             .then(user => {
                 if(user.length){
-                    console.log("user available ");
+                    console.log("User not available ");
                     res.status(200).send({
                         message : "User already present"
                     })
@@ -88,7 +88,7 @@ router.post('/login', (req, res, body) => {
                     User.email = user[0].email;
                     User.password = null;
                     User.isAdmin = user[0].admin;
-                    let token = jwt.sign(User, 'grocery-shop', { expiresIn: 100 });
+                    let token = jwt.sign(User, 'grocery-shop', { expiresIn: 30 });
                     return res.status(200).send({
                         token: token,
                         id: user[0]._id

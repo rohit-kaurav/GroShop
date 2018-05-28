@@ -1,3 +1,4 @@
+import { JwtHelper } from 'angular2-jwt';
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
@@ -49,5 +50,12 @@ export class UserService {
         console.log("checkemail", data);
         return data;
       })
+  }
+
+  public isLoggedIn(){
+    let jwt = new JwtHelper();
+    let token = localStorage.getItem('token');
+    if(token && !jwt.isTokenExpired(token)) return true;
+    return false;
   }
 }

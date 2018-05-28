@@ -1,10 +1,11 @@
-
+import { AdminAuthGuard } from './route-guards/admin-auth-guard.service';
+import { AuthGuard } from './route-guards/auth-guard.service';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
@@ -25,6 +26,7 @@ import { TestService } from './services/test-service.service';
 import { UserService } from './services/user.service';
 import { SignUpComponent } from './signup/signup.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
+import { UserLoggedInGuard } from './route-guards/user-loggedin-guard.service';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,6 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    NoopAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
@@ -53,7 +54,13 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
     RoutesModule,
     MdComponentsModule
   ],
-  providers: [TestService, UserService],
+  providers: [
+    TestService, 
+    UserService,
+    AuthGuard,
+    AdminAuthGuard,
+    UserLoggedInGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

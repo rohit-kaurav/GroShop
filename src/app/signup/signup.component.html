@@ -1,38 +1,127 @@
 <div id="signup-section">
   <div class="container col-md-5" id="signup-box">
     <h1 id="signup-title">SignUp</h1>
-    <form [formGroup]='signupform' (ngSubmit)="onSubmit()">
+    <div
+        @fade
+        *ngIf="mandatory"
+        class="validation-info">
+      <h4>All fields are mandatory.</h4>
+    </div>
+    <form [formGroup]='signUpForm' (ngSubmit)="onSubmit()">
       <input 
-        placeholder="Firstname" 
+        placeholder="Firstname"
         class="form-control name-fields"
         formControlName="firstname">
       <input 
         placeholder="Lastname"
         class="form-control name-fields"
         formControlName="lastname">
-      <input 
+      <br/><br/>
+      <div 
+          @fade
+          *ngIf="firstname.touched && firstname.invalid"
+          class="validation-info">
+        <ng-container *ngIf="firstname.touched">
+          <ng-container *ngIf="firstname.errors.required">
+            <p>Firstname is required.</p>
+          </ng-container>
+        </ng-container>
+      </div>
+      <div 
+          @fade
+          *ngIf="lastname.touched && lastname.invalid"
+          class="validation-info">
+        <ng-container *ngIf="lastname.touched">
+          <ng-container *ngIf="lastname.errors.required">
+            <p>Lastname is required.</p>
+          </ng-container>
+        </ng-container>
+      </div>
+      <input
+        type="number"
+        min="1"
+        max="60"
         placeholder="Age" 
         class="form-control"
         formControlName="age">
+      <div 
+        @fade
+        *ngIf="age.touched && age.invalid"
+        class="validation-info">
+        <ng-container *ngIf="age.touched">
+          <ng-container *ngIf="age.errors.required">
+            <p>Age is required and must be a number.</p>
+          </ng-container>
+        </ng-container>
+      </div>
       <input 
         placeholder="Username" 
         class="form-control login-fields"
         formControlName="username">
+      
       <div formGroupName="passwordgroup">
         <input 
           placeholder="Password" 
           class="form-control login-fields"
           formControlName="password">
+        <div 
+          @fade
+          *ngIf="username.touched && username.invalid"
+          class="validation-info">
+          <ng-container *ngIf="username.touched">
+            <ng-container *ngIf="username.errors.required">
+              <p>Username is required.</p>
+            </ng-container>
+            <ng-container *ngIf="username.errors.minlength">
+              <p>Username must be atleast {{ username.errors.minlength.requiredLength }} characters.</p>
+            </ng-container>
+            <ng-container *ngIf="username.errors.hasUniqueUsername">
+              <p>Username already taken.</p>
+            </ng-container>
+          </ng-container>
+        </div>
+        <div 
+            @fade
+            *ngIf="password.touched && password.invalid"
+            class="validation-info">
+          <ng-container *ngIf="password.touched">
+            <ng-container *ngIf="password.errors.required">
+              <p>Password is required.</p>
+            </ng-container>
+            <ng-container *ngIf="password.errors.minlength">
+              <p>Password must be atleast {{ password.errors.minlength.requiredLength }} characters.</p>
+            </ng-container>
+          </ng-container>
+        </div>
         <input 
           placeholder="Confirm Password" 
           class="form-control"
           formControlName="confirmpassword">
       </div>
+      <div 
+          @fade
+          *ngIf="password.valid"
+          class="validation-info">
+        <ng-container *ngIf="passwordgroup.errors?.passwordsShouldMatch">
+          <p>Passwords donot match.</p>
+        </ng-container>
+      </div>
+
       <input 
-        placeholder="example@domain.com" 
+        placeholder="example@domain.com"
         class="form-control"
         formControlName="email">
-      
+      <div 
+          @fade
+          *ngIf="email.touched && email.invalid"
+          class="validation-info">
+        <ng-container *ngIf="email.errors.required">
+          <p>Email is required.</p>
+        </ng-container>
+        <ng-container *ngIf="email.errors.pattern">
+          <p>Invalid Email.</p>
+        </ng-container>
+      </div>
       <button type="submit" class="btn btn-info">Register</button>
       <a routerLink="/login">Already a member?</a>
     </form>
