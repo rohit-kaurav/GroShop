@@ -27,19 +27,22 @@ export class NavbarComponent {
         this.currentUser.lastname = decoded.lastname;
         this.currentUser.isAdmin = decoded.isAdmin;
       } else {
-        this.logOut();
-      }      
-    } else {
-      this.router.navigate(['/login']);
+        this.clearData();
+        location.reload();
+      }
     }
   }
 
   currentUser;
 
   logOut() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('id');
+    this.clearData();
     location.reload();
     this.router.navigate(['/login']);
+  }
+
+  private clearData(){
+    localStorage.removeItem('token');
+    localStorage.removeItem('id');
   }
 }
