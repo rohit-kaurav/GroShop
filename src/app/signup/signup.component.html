@@ -5,7 +5,7 @@
         @fade
         *ngIf="mandatory"
         class="validation-info">
-      <h4>All fields are mandatory.</h4>
+      <h5>All fields are mandatory.</h5>
     </div>
     <form [formGroup]='signUpForm' (ngSubmit)="onSubmit()">
       <input 
@@ -75,7 +75,7 @@
             <ng-container *ngIf="username.errors.minlength">
               <p>Username must be atleast {{ username.errors.minlength.requiredLength }} characters.</p>
             </ng-container>
-            <ng-container *ngIf="username.errors.hasUniqueUsername">
+            <ng-container *ngIf="!username.errors.hasUniqueUsername && !username.errors.minlength && !username.errors.required">
               <p>Username already taken.</p>
             </ng-container>
           </ng-container>
@@ -120,6 +120,9 @@
         </ng-container>
         <ng-container *ngIf="email.errors.pattern">
           <p>Invalid Email.</p>
+        </ng-container>
+        <ng-container *ngIf="!email.errors?.hasUniqueEmail && !email.errors.required && !email.errors.pattern">
+          <p>Email already registered.</p>
         </ng-container>
       </div>
       <button type="submit" class="btn btn-info">Register</button>

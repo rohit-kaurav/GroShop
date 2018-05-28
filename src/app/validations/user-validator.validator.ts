@@ -8,12 +8,11 @@ export class NewUser {
 
     static hasUniqueUsername(service: UserService) {
         return (control: AbstractControl): Promise<ValidationErrors | null> => {
-            console.log("Value of control ", control.value);
             return new Promise((resolve, reject) => {
                 service.checkUsernameExists(control.value)
                     .subscribe(data => {
-                        console.log("validations ",data);
-                        resolve(null);
+                        if(data.message == 'User available') resolve(null);
+                        resolve({ hasUniqueUsername: false });
                     })
             })
         }
@@ -24,8 +23,8 @@ export class NewUser {
             return new Promise((resolve,reject) => {
                 service.checkEmailAlreadyExists(control.value)
                     .subscribe(data => {
-                        console.log("inside email validations ", data);
-                        resolve(null);
+                        if(data.message == 'Email available') resolve(null);
+                        resolve({ hasUniqueEmail: false });
                     })
             })
         }

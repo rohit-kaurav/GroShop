@@ -39,16 +39,14 @@ export class UserService {
   public checkUsernameExists(username) {
     return this.http.post('user/username_exists', { 'username': username })
       .map(data => {
-        console.log("checkUser", data);
-        return data;
+        return JSON.parse(data['_body']);
       });
   }
 
   public checkEmailAlreadyExists(email) {
     return this.http.post('user/email_exists', { 'email': email })
       .map(data => {
-        console.log("checkemail", data);
-        return data;
+        return JSON.parse(data['_body']);
       })
   }
 

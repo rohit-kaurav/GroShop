@@ -47,7 +47,6 @@ router.post('/username_exists',(req,res) => {
                         message : "User already present"
                     })
                 }
-                console.log("user available");
                 res.status(200).send({
                     message : "User available"
                 })
@@ -61,12 +60,10 @@ router.post('/email_exists',(req,res) => {
             .toArray()
             .then(user => {
                 if(user.length){
-                    console.log("email already present");
                     res.status(200).send({
                         message : "Email already present"
                     })
                 }
-                console.log("Email available");
                 res.status(200).send({
                     message : "Email available"
                 })
